@@ -1,11 +1,15 @@
-cmake_minimum_required(VERSION 4.1)
+cmake_minimum_required(VERSION 3.20)
 project(SoundApp)
 
 set(CMAKE_CXX_STANDARD 14)
 
-include_directories(.)
-
 add_executable(SoundApp
         main.cpp
         src/audioItems/AudioItem.cpp
+        src/audioItems/Artist.cpp
+        src/headers/Artist.h
+)
+
+target_include_directories(SoundApp PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/headers
 )

@@ -1,8 +1,4 @@
-//
-// Created by Jan Kaduch on 07.04.2026.
-//
-
-#include "../headers/AudioItem.h"
+#include "AudioItem.h"
 
 #include <iostream>
 
@@ -12,6 +8,15 @@ AudioItem::AudioItem(string audioName, int audioDuration, string audioThumbNail)
     this->audioItemName = audioName;
     this->audioItemDuration = audioDuration;
     this->audioItemThumbNailPath = audioThumbNail;
+    AudioItem::totalAudioItems++;
+}
+
+AudioItem::~AudioItem() {
+    AudioItem::totalAudioItems--;
+}
+
+int AudioItem::getTotalAudioItems() {
+    return AudioItem::totalAudioItems;
 }
 
 string AudioItem::getAudioItemName() {

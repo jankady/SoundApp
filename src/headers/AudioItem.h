@@ -1,27 +1,29 @@
-//
-// Created by Jan Kaduch on 07.04.2026.
-//
 
 #ifndef SOUNDAPP_AUDIOITEM_H
 #define SOUNDAPP_AUDIOITEM_H
 #include <string>
 
-using namespace std;
+#include "Artist.h"
 
 class AudioItem {
 private:
-    string audioItemName;
+    static int totalAudioItems; // Static member to keep track of total audio items created
+    std::string audioItemName;
     int audioItemDuration; // in seconds
-    string audioItemThumbNailPath;
+    std::string audioItemThumbNailPath;
+    Artist* owner;
+
 public:
 
-    AudioItem(string audioName, int audioDuration, string audioThumbNail);
+    AudioItem(std::string audioName, int audioDuration, std::string audioThumbNail);
+    virtual ~AudioItem();
 
-    string getAudioItemName();
+    static int getTotalAudioItems();
+    std::string getAudioItemName();
     int getAudioItemDuration();
-    string getAudioItemThumbNailPath();
+    std::string getAudioItemThumbNailPath();
 
-    bool setAudioItemName(string newAudioName);
+    bool setAudioItemName(std::string newAudioName);
 
     virtual void play();
     virtual void pause();
