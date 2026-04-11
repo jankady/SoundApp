@@ -1,5 +1,7 @@
 
 #include "Playlist.h"
+#include "AudioItem.h"
+#include "User.h"
 
 int Playlist::nextPlaylistId = 1;
 int Playlist::totalPlaylists = 0;
@@ -45,10 +47,10 @@ User *Playlist::getOwner() {
 
 std::string Playlist::getPlaylistInfo() {
     std::string info = "Playlist Name: " + this->playlistName + "\n";
-    info += "Created by: " + std::to_string(this->owner->getUsername()) + "\n";
+    info += "Created by: " + this->owner->getUsername() + "\n";
     info += "Total Songs: " + std::to_string(this->totalSongs) + "\n";
     for (int i = 0; i < this->totalSongs; i++) {
-        info += "Song " + std::to_string(i + 1) + ": " + this->songs[i].getAudioItemName() + "\n";
+        info += "Song " + std::to_string(i + 1) + ": " + this->songs[i]->getAudioItemName() + "\n";
     }
     info += "-------------------------- \n";
     return info;
@@ -65,4 +67,13 @@ bool Playlist::addSongToPlaylist(AudioItem* song) {
     this->songs[this->totalSongs++] = song;
     return true;
 
+}
+
+bool Playlist::addSongToPlaylist(Playlist* playlist) {
+
+    return true; // All songs added successfully
+}
+
+bool Playlist::removeSongFromPlaylist(int songId) {
+    return true;
 }

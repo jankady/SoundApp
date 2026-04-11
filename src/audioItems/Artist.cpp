@@ -1,7 +1,8 @@
 
 #include "Artist.h"
-
+#include "User.h"
 #include <iostream>
+
 int Artist::totalArtists = 0;
 
 Artist::Artist(std::string username, std::string email) : User(username, email) {

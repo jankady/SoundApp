@@ -3,7 +3,7 @@
 #define SOUNDAPP_AUDIOITEM_H
 #include <string>
 
-#include "Artist.h"
+class Artist;
 
 class AudioItem {
 private:

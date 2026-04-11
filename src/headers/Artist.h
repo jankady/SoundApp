@@ -2,11 +2,11 @@
 #ifndef SOUNDAPP_ARTIST_H
 #define SOUNDAPP_ARTIST_H
 #include <string>
-#include "Playlist.h"
 #include "User.h"
 
+class Playlist;
 
-class Artist: User {
+class Artist: public User {
 private:
     static int totalArtists; // Static member to keep track of total artists created
     int followers;

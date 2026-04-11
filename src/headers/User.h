@@ -1,6 +1,3 @@
-//
-// Created by Jan Kaduch on 11.04.2026.
-//
 
 #ifndef SOUNDAPP_USER_H
 #define SOUNDAPP_USER_H

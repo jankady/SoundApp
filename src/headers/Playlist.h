@@ -1,8 +1,11 @@
 
 #ifndef SOUNDAPP_PLAYLIST_H
 #define SOUNDAPP_PLAYLIST_H
-#include "AudioItem.h"
+#include <string>
 
+class AudioItem;
+
+class User;
 
 class Playlist {
 private:
