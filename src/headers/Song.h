@@ -1,6 +1,3 @@
-//
-// Created by Jan Kaduch on 11.04.2026.
-//
 
 #ifndef SOUNDAPP_SONG_H
 #define SOUNDAPP_SONG_H
@@ -14,7 +11,7 @@ private:
     Playlist* parentAlbum;
 
 public:
-    Song(std::string songName, int songDuration, std::string songThumbNail, Artist** songOwners, Playlist* parentAlbum);
+    Song(std::string songName, int songDuration, std::string songThumbNail, Artist** songOwners, int songOwnerCount ,Playlist* parentAlbum);
     ~Song();
 
     static int getTotalSongs();

@@ -1,20 +1,20 @@
-//
-// Created by Jan Kaduch on 11.04.2026.
-//
 
 #include "Song.h"
 
 #include <iostream>
 
+#include "Playlist.h"
+
 int Song::totalSongs = 0;
 
-Song::Song(std::string songName, int songDuration, std::string songThumbNail, Artist** songOwners, Playlist* parentAlbum)
-    : AudioItem(songName, songDuration, songThumbNail, songOwners) {
+Song::Song(std::string songName, int songDuration, std::string songThumbNail, Artist** songOwners, int songOwnerCount ,Playlist* parentAlbum)
+    : AudioItem(songName, songDuration, songThumbNail, songOwners, songOwnerCount) {
     this->parentAlbum = parentAlbum;
     Song::totalSongs++;
 }
 
 Song::~Song() {
+    delete this->parentAlbum;
     Song::totalSongs--;
 }
 

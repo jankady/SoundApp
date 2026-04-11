@@ -7,17 +7,19 @@ using namespace std;
 int AudioItem::nextAudioItemId = 1;
 int AudioItem::totalAudioItems = 0;
 
-AudioItem::AudioItem(string audioName, int audioDuration, string audioThumbNail, Artist** audioOwners) {
+AudioItem::AudioItem(string audioName, int audioDuration, string audioThumbNail, Artist** audioOwners, int ownersCount) {
     this->audioItemId = AudioItem::nextAudioItemId++;
     this->audioItemName = audioName;
     this->audioItemDuration = audioDuration;
     this->audioItemThumbNailPath = audioThumbNail;
     this->owners = audioOwners;
+    this->ownersCount = ownersCount;
     AudioItem::totalAudioItems++;
 
 }
 
 AudioItem::~AudioItem() {
+    delete[] this->owners;
     AudioItem::totalAudioItems--;
 }
 
@@ -47,6 +49,14 @@ bool AudioItem::setAudioItemName(string newAudioName) {
     }
     this->audioItemName = newAudioName;
     return true;
+}
+
+Artist **AudioItem::getOwners() {
+    return this->owners;
+}
+
+int AudioItem::getOwnersCount() {
+    return this->ownersCount;
 }
 
 void AudioItem::play() {

@@ -14,10 +14,11 @@ private:
     int audioItemDuration; // in seconds
     std::string audioItemThumbNailPath;
     Artist** owners;
+    int ownersCount;
 
 public:
 
-    AudioItem(std::string audioName, int audioDuration, std::string audioThumbNail, Artist** audioOwners);
+    AudioItem(std::string audioName, int audioDuration, std::string audioThumbNail, Artist** audioOwners, int ownersCount);
     virtual ~AudioItem();
 
     static int getTotalAudioItems();
@@ -25,6 +26,8 @@ public:
     int getAudioItemDuration();
     std::string getAudioItemThumbNailPath();
     int getAudioItemId();
+    int getOwnersCount();
+    Artist** getOwners();
 
     bool setAudioItemName(std::string newAudioName);
 
