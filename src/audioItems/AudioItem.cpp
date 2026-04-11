@@ -4,11 +4,17 @@
 
 using namespace std;
 
-AudioItem::AudioItem(string audioName, int audioDuration, string audioThumbNail) {
+int AudioItem::nextAudioItemId = 1;
+int AudioItem::totalAudioItems = 0;
+
+AudioItem::AudioItem(string audioName, int audioDuration, string audioThumbNail, Artist** audioOwners) {
+    this->audioItemId = AudioItem::nextAudioItemId++;
     this->audioItemName = audioName;
     this->audioItemDuration = audioDuration;
     this->audioItemThumbNailPath = audioThumbNail;
+    this->owners = audioOwners;
     AudioItem::totalAudioItems++;
+
 }
 
 AudioItem::~AudioItem() {

@@ -2,6 +2,7 @@
 #ifndef SOUNDAPP_ARTIST_H
 #define SOUNDAPP_ARTIST_H
 #include <string>
+#include "Playlist.h"
 
 
 class Artist {

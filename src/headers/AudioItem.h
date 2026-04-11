@@ -7,15 +7,17 @@
 
 class AudioItem {
 private:
+    static int nextAudioItemId; // Static member to generate unique audio item IDs
     static int totalAudioItems; // Static member to keep track of total audio items created
+    int audioItemId;
     std::string audioItemName;
     int audioItemDuration; // in seconds
     std::string audioItemThumbNailPath;
-    Artist* owner;
+    Artist** owners;
 
 public:
 
-    AudioItem(std::string audioName, int audioDuration, std::string audioThumbNail);
+    AudioItem(std::string audioName, int audioDuration, std::string audioThumbNail, Artist** audioOwners);
     virtual ~AudioItem();
 
     static int getTotalAudioItems();
