@@ -8,7 +8,8 @@ add_executable(SoundApp
         src/audioItems/AudioItem.cpp
         src/audioItems/Artist.cpp
         src/audioItems/Playlist.cpp
-        )
+        src/audioItems/User.cpp
+)
 
 target_include_directories(SoundApp PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src/headers

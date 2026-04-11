@@ -2,14 +2,19 @@
 #include "Artist.h"
 
 #include <iostream>
+int Artist::totalArtists = 0;
 
-Artist::Artist() {
+Artist::Artist(std::string username, std::string email) : User(username, email) {
     this->followers = 0;
     this->releasedAlbums = nullptr;
+    Artist::totalArtists++;
 }
 
 Artist::~Artist() {
+
     delete[] this->releasedAlbums;
+
+    Artist::totalArtists--;
 }
 
 int Artist::getTotalArtists() {
@@ -20,7 +25,7 @@ int Artist::getFollowers() {
     return this->followers;
 }
 
-Playlist* Artist::getReleasedAlbums() {
+Playlist** Artist::getReleasedAlbums() {
     return this->releasedAlbums;
 }
 

@@ -7,7 +7,7 @@ int Playlist::totalPlaylists = 0;
 Playlist::Playlist(std::string playlistName, User *owner) {
     this->playlistId = Playlist::nextPlaylistId++;
     this->playlistName = playlistName;
-    this->songs = new AudioItem*[10]; // Initial capacity for 10 songs, can be resized as needed
+    this->songs = new AudioItem*[10]; // Initial capacity for 10 songs
     this->totalSongs = 0;
     this->playlistCapacity = 10;
     this->owner = owner;
