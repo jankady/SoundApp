@@ -32,7 +32,7 @@ Playlist** Artist::getReleasedAlbums() {
 
 bool Artist::releaseNewSong(std::string songName, int songDuration, std::string songThumbNail) {
     // Implementation to release a new song
-    // This is a placeholder implementation and should be expanded based on the actual requirements
+
     std::cout << "Releasing new song: " << songName << std::endl;
     return true;
 }

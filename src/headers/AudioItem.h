@@ -24,6 +24,7 @@ public:
     std::string getAudioItemName();
     int getAudioItemDuration();
     std::string getAudioItemThumbNailPath();
+    int getAudioItemId();
 
     bool setAudioItemName(std::string newAudioName);
 

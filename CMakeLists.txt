@@ -13,6 +13,8 @@ add_executable(SoundApp
         src/headers/Playlist.h
         src/audioItems/User.cpp
         src/headers/User.h
+        src/audioItems/Song.cpp
+        src/headers/Song.h
 )
 
 target_include_directories(SoundApp PRIVATE

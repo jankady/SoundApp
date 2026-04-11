@@ -29,6 +29,10 @@ string AudioItem::getAudioItemName() {
     return this->audioItemName;
 }
 
+int AudioItem::getAudioItemId() {
+    return this->audioItemId;
+}
+
 int AudioItem::getAudioItemDuration() {
     return this->audioItemDuration;
 }
