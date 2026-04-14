@@ -49,10 +49,12 @@ std::string Playlist::getPlaylistInfo() {
     std::string info = "Playlist Name: " + this->playlistName + "\n";
     info += "Created by: " + this->owner->getUsername() + "\n";
     info += "Total Songs: " + std::to_string(this->totalSongs) + "\n";
-    for () {
+    int totalDuration = 0;
+    for (int i = 0; i < this->totalSongs; i++) {
+        totalDuration += this->songs[i]->getAudioItemDuration();
 
     }
-    info += "Total duration:\n";
+    info += "Total duration: " + std::to_string(totalDuration / 60) + " minutes\n";
     info += "-------------------------- \n";
     for (int i = 0; i < this->totalSongs; i++) {
         info += "Song " + std::to_string(i + 1) + ": " + this->songs[i]->getAudioItemName() + "\n";
@@ -77,11 +79,29 @@ bool Playlist::addSongToPlaylist(AudioItem* song) {
 
 // implement
 bool Playlist::addSongToPlaylist(Playlist* playlist) {
-
+    for (int i = 0; i < this->totalSongs; i++) {
+        if (!this->addSongToPlaylist(playlist->songs[i])) {
+            return false; // If adding any song fails, return false
+        }
+    }
     return true; // All songs added successfully
 }
 
-// implement
 bool Playlist::removeSongFromPlaylist(int songId) {
+    for (int i = 0; i < this->totalSongs; i++) {
+        if (this->songs[i]->getAudioItemId() == songId) {
+            // Shift songs to fill the gap
+            for (int j = i; j < this->totalSongs - 1; j++) {
+                this->songs[j] = this->songs[j + 1];
+            }
+            this->totalSongs--; // Decrease total songs count
+            return true; // Song removed successfully
+        }
+    }
+    return false;
+}
+
+bool Playlist::removeAllSongsFromPlaylist() {
+    this->totalSongs = 0; // Reset total songs to 0, effectively removing all songs from the playlist
     return true;
 }

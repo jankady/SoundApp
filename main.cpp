@@ -3,6 +3,7 @@
 #include "Artist.h"
 #include "AudioItem.h"
 #include "MainPlatform.h"
+#include "Playlist.h"
 #include "Song.h"
 #include "User.h"
 using namespace std;
@@ -22,7 +23,7 @@ int main() {
     a1->play();
     a1->setAudioItemName("NewName");
     a1->pause();
-    cout << "Albums: "<< djpicka->getFollowers() << endl;
+    cout << "Albums: "<< djpicka->getUnpublishedSongs()->get << endl;
 
 
     delete musicApp;

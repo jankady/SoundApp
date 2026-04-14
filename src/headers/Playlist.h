@@ -34,6 +34,8 @@ public:
     bool addSongToPlaylist(AudioItem* song);
     bool addSongToPlaylist(Playlist* playlist);
     bool removeSongFromPlaylist(int songId);
+    bool removeAllSongsFromPlaylist();
+
 };
 
 
