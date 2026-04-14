@@ -49,6 +49,11 @@ std::string Playlist::getPlaylistInfo() {
     std::string info = "Playlist Name: " + this->playlistName + "\n";
     info += "Created by: " + this->owner->getUsername() + "\n";
     info += "Total Songs: " + std::to_string(this->totalSongs) + "\n";
+    for () {
+
+    }
+    info += "Total duration:\n";
+    info += "-------------------------- \n";
     for (int i = 0; i < this->totalSongs; i++) {
         info += "Song " + std::to_string(i + 1) + ": " + this->songs[i]->getAudioItemName() + "\n";
     }
@@ -56,6 +61,7 @@ std::string Playlist::getPlaylistInfo() {
     return info;
 }
 
+// implement
 bool Playlist::addSongToPlaylist(AudioItem* song) {
 
     // first check capacity if is full then increase capacity
@@ -69,11 +75,13 @@ bool Playlist::addSongToPlaylist(AudioItem* song) {
 
 }
 
+// implement
 bool Playlist::addSongToPlaylist(Playlist* playlist) {
 
     return true; // All songs added successfully
 }
 
+// implement
 bool Playlist::removeSongFromPlaylist(int songId) {
     return true;
 }

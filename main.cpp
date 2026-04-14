@@ -2,11 +2,14 @@
 
 #include "Artist.h"
 #include "AudioItem.h"
+#include "MainPlatform.h"
 #include "Song.h"
 #include "User.h"
 using namespace std;
 
 int main() {
+
+    MainPlatform *musicApp = new MainPlatform();
 
     Artist* johnDoe = new Artist("JohnDoe", "johnDoe@email.com");
     Artist* djpicka = new Artist("DJPicka", "picka@sro.cz");
@@ -19,8 +22,10 @@ int main() {
     a1->play();
     a1->setAudioItemName("NewName");
     a1->pause();
-    cout << "Albums: "<< djpicka->getReleasedAlbums() << endl;
+    cout << "Albums: "<< djpicka->getFollowers() << endl;
 
+
+    delete musicApp;
     delete djpicka;
     delete johnDoe;
     delete a1;

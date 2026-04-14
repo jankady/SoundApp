@@ -12,13 +12,14 @@ Artist::Artist(std::string username, std::string email) : User(username, email) 
     this->followers = 0;
     this->releasedAlbums = new Playlist *[10];
     this->releasedAlbumsCount = 0;
+    this->unpublishedSongs = new Playlist("Personal", this);
     Artist::totalArtists++;
 }
 
 Artist::~Artist() {
 
     delete[] this->releasedAlbums;
-
+    delete[] this->unpublishedSongs;
     Artist::totalArtists--;
 }
 
@@ -42,7 +43,16 @@ Song* Artist::releaseNewSong(std::string songName, int songDuration, std::string
         songOwners[i] = additionalOwners[i]; // Add additional owners
     }
     Song *newSong = new Song(songName, songDuration, songThumbNail, songOwners, additionalOwnersCount + 1, nullptr);
-    this->releasedAlbums[0]->addSongToPlaylist(newSong); // Add the new song to the first album (for simplicity)
+    this->unpublishedSongs->addSongToPlaylist(newSong); // Add the new song to the first album (for simplicity)
     std::cout << "Releasing new song: " << songName << std::endl;
     return newSong;
 }
+
+Playlist* Artist::releaseNewAlbum(std::string albumName, int albumDuration, std::string albumThumbNail) {
+    Playlist *newAlbum = new Playlist(albumName, this);
+    this->releasedAlbums[this->releasedAlbumsCount++] = newAlbum; // Add the new album to the released albums
+    std::cout << "Releasing new album: " << albumName << std::endl;
+    return newAlbum;
+}
+
+// implement podcast release

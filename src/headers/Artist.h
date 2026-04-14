@@ -8,11 +8,14 @@ class Playlist;
 
 class Song;
 
+class Podcast;
+
 class Artist: public User {
 private:
     static int totalArtists; // Static member to keep track of total artists created
     int followers;
     Playlist** releasedAlbums;
+    Playlist* unpublishedSongs; // Playlist to hold unpublished songs
     int releasedAlbumsCount;
 
 public:
@@ -25,7 +28,8 @@ public:
     Playlist** getReleasedAlbums();
 
     Song* releaseNewSong(std::string songName, int songDuration, std::string songThumbNail, Artist** additionalOwners, int additionalOwnersCount);
-    bool releaseNewAlbum(std::string albumName, int albumDuration, std::string albumThumbNail);
+    Playlist* releaseNewAlbum(std::string albumName, int albumDuration, std::string albumThumbNail);
+    Podcast* releaseNewPodcast(std::string podcastName, int podcastDuration, std::string podcastThumbNail, Artist** additionalOwners, int additionalOwnersCount);
 };
 
 
