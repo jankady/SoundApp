@@ -4,12 +4,27 @@
 
 #ifndef SOUNDAPP_INVOICE_H
 #define SOUNDAPP_INVOICE_H
+#include <string>
 
+class Date;
 
 class Invoice {
 private:
-    bool isActive;
-    Date* endDate;
+    static int totalInvoices; // Static member to keep track of total invoices created
+    static int nextInvoiceId; // Static member to generate unique invoice IDs
+    int id;
+    std::string customerName; // Name of the customer associated with the invoice
+    Date* date;
+    double cost;
+
+public:
+    Invoice(std::string customername, Date* date, double cost);
+    ~Invoice();
+
+    double getCost() const;
+    Date* getDate() const;
+
+    std::string printInvoiceDetails();
 };
 
 

@@ -2,11 +2,14 @@
 
 #include "Artist.h"
 #include "AudioItem.h"
+#include "Date.h"
 #include "MainPlatform.h"
 #include "Playlist.h"
 #include "Song.h"
 #include "User.h"
 using namespace std;
+
+static Date* currentDay = new Date(7,4,2026);
 
 int main() {
 
