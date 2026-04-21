@@ -23,7 +23,7 @@ MainPlatform::~MainPlatform() {
 }
 
 User* MainPlatform::createNewUser(std::string username, std::string email) {
-    if (this->activeUsers >= 100) {
+    if (MainPlatform::activeUsers >= 100) {
         return nullptr;
     }
     User* newUser = new User(username, email);

@@ -15,7 +15,7 @@ private:
 
 public:
     User(std::string username, std::string email);
-    ~User();
+    virtual ~User();
 
     static int getTotalUsers();
     int getUserId();

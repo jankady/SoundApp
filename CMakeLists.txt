@@ -17,6 +17,14 @@ add_executable(SoundApp
         src/headers/Song.h
         src/audioItems/MainPlatform.cpp
         src/headers/MainPlatform.h
+        src/audioItems/Customer.cpp
+        src/headers/Customer.h
+        src/audioItems/Subscription.cpp
+        src/headers/Subscription.h
+        src/audioItems/Invoice.cpp
+        src/headers/Invoice.h
+        src/audioItems/Date.cpp
+        src/headers/Date.h
 )
 
 target_include_directories(SoundApp PRIVATE

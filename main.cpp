@@ -23,7 +23,7 @@ int main() {
     a1->play();
     a1->setAudioItemName("NewName");
     a1->pause();
-    cout << "Albums: "<< djpicka->getUnpublishedSongs()->get << endl;
+    cout << "Albums: "<< djpicka->getUnpublishedSongs() << endl;
 
 
     delete musicApp;
