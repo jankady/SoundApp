@@ -16,7 +16,7 @@ class Subscription {
 private:
     int static totalSubscriptions; // Static member to keep track of total subscriptions created
     bool isActive;
-    SubscriptionType type;
+    SubscriptionType subscriptionName;
     Date* endDate;
 
 public:

@@ -9,32 +9,31 @@
 int Subscription::totalSubscriptions = 0;
 
 Subscription::Subscription(SubscriptionType type, Date* endDate) {
-    this->type = type;
+    this->subscriptionName = type;
     this->endDate = endDate;
-    this->isActive = true; // Assuming subscription is active upon creation
+    this->isActive = true;
     Subscription::totalSubscriptions++;
 }
 
 Subscription::Subscription(SubscriptionType type) {
-    this->type = type;
-    this->endDate = nullptr; // No end date for free subscription
-    this->isActive = true; // Assuming subscription is active upon creation
+    this->subscriptionName = type;
+    this->endDate = nullptr;
+    this->isActive = true;
     Subscription::totalSubscriptions++;
 }
 
 Subscription::~Subscription() {
-    delete this->endDate; // Clean up the end date if it exists
+    delete this->endDate;
     Subscription::totalSubscriptions--;
 }
 
 bool Subscription::setSubscriptionType(SubscriptionType type) {
-    this->type = type;
+    this->subscriptionName = type;
     if (type == FREE) {
-        this->endDate = nullptr; // Free subscription has no end date
+        this->endDate = nullptr;
         this->isActive = false;
     } else if (type == PREMIUM) {
-
-        this->endDate = new Date(1, 1, 2027); // Placeholder date
+        this->endDate = new Date(1, 1, 2027);
     }
-   return true;
+    return true;
 }
