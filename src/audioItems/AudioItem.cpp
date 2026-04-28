@@ -58,11 +58,3 @@ Artist **AudioItem::getOwners() {
 int AudioItem::getOwnersCount() {
     return this->ownersCount;
 }
-
-void AudioItem::play() {
-    cout << "Playing audio: " << this->audioItemName << endl;
-}
-
-void AudioItem::pause() {
-    cout << "Pausing audio: " << this->audioItemName << endl;
-}

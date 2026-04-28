@@ -10,6 +10,8 @@ class Song;
 
 class Podcast;
 
+class MainPlatform;
+
 class Artist: public User {
 private:
     static int totalArtists; // Static member to keep track of total artists created
@@ -17,9 +19,10 @@ private:
     Playlist** releasedAlbums;
     Playlist* unpublishedSongs; // Playlist to hold unpublished songs
     int releasedAlbumsCount;
+    MainPlatform* platform;
 
 public:
-    Artist(std::string username, std::string email);
+    Artist(std::string username, std::string email, MainPlatform* platform);
     ~Artist();
 
     static int getTotalArtists();

@@ -3,16 +3,18 @@
 #include "User.h"
 #include <iostream>
 
+#include "MainPlatform.h"
 #include "Playlist.h"
 #include "Song.h"
 
 int Artist::totalArtists = 0;
 
-Artist::Artist(std::string username, std::string email) : User(username, email) {
+Artist::Artist(std::string username, std::string email, MainPlatform* platform) : User(username, email) {
     this->followers = 0;
     this->releasedAlbums = new Playlist *[10];
     this->releasedAlbumsCount = 0;
     this->unpublishedSongs = new Playlist("Personal", this);
+    this->platform = platform;
 
     Artist::totalArtists++;
 }
@@ -62,8 +64,8 @@ Song* Artist::releaseNewSong(std::string songName, int songDuration, std::string
     }
     Song *newSong = new Song(songName, songDuration, songThumbNail, songOwners, additionalOwnersCount + 1, nullptr);
     this->unpublishedSongs->addSongToPlaylist(newSong); // Add the new song to the first album (for simplicity)
+    this->platform->addAudioItem(newSong);
     std::cout << "Releasing new song: " << songName << std::endl;
-
     return newSong;
 }
 

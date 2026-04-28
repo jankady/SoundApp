@@ -38,7 +38,7 @@ User* MainPlatform::createNewUser(std::string username, std::string email, bool 
     User* newUser;
     if (isArtist) {
         // Create an artist user
-        newUser = new Artist(username, email);
+        newUser = new Artist(username, email, this);
     }
     else {
         newUser = new Customer(username, email);

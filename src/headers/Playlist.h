@@ -17,8 +17,6 @@ private:
     int playlistCapacity;
     std::string playlistName;
     User *owner;
-
-   AudioItem** incerasePlaylistCapacity();
 public:
     Playlist(std::string playlistName, User *owner);
     ~Playlist();

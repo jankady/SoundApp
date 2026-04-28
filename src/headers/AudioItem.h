@@ -31,8 +31,8 @@ public:
 
     bool setAudioItemName(std::string newAudioName);
 
-    virtual void play();
-    virtual void pause();
+    virtual void play() = 0; // Pure virtual function to be implemented by derived classes
+    virtual void pause() = 0;
 };
 
 
