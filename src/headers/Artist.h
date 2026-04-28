@@ -28,6 +28,9 @@ public:
     Playlist** getReleasedAlbums();
     Playlist* getUnpublishedSongs();
 
+    bool addFollower();
+    bool removeFollower();
+
     Song* releaseNewSong(std::string songName, int songDuration, std::string songThumbNail, Artist** additionalOwners, int additionalOwnersCount);
     Playlist* releaseNewAlbum(std::string albumName);
     Podcast* releaseNewPodcast(std::string podcastName, int podcastDuration, std::string podcastThumbNail, Artist** additionalOwners, int additionalOwnersCount);

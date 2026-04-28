@@ -34,8 +34,8 @@ public:
     Subscription* getSubscription();
     Artist** getFollowingArtists();
 
-
     bool followArtist(Artist* artist);
+    bool unfollowArtist(Artist* artist);
     Song** searchSong(std::string songName);
     Podcast** searchPodcast(std::string podcastName);
     bool createPlaylist(std::string playlistName);

@@ -40,6 +40,19 @@ Playlist* Artist::getUnpublishedSongs() {
     return this->unpublishedSongs;
 }
 
+bool Artist::addFollower() {
+    this->followers++;
+    return true;
+}
+
+bool Artist::removeFollower() {
+    if (this->followers > 0) {
+        this->followers--;
+        return true;
+    }
+    return false;
+}
+
 Song* Artist::releaseNewSong(std::string songName, int songDuration, std::string songThumbNail, Artist** additionalOwners, int additionalOwnersCount) {
 
     Artist** songOwners = new Artist *[additionalOwnersCount + 1];
@@ -50,6 +63,7 @@ Song* Artist::releaseNewSong(std::string songName, int songDuration, std::string
     Song *newSong = new Song(songName, songDuration, songThumbNail, songOwners, additionalOwnersCount + 1, nullptr);
     this->unpublishedSongs->addSongToPlaylist(newSong); // Add the new song to the first album (for simplicity)
     std::cout << "Releasing new song: " << songName << std::endl;
+
     return newSong;
 }
 
@@ -65,3 +79,4 @@ Playlist* Artist::releaseNewAlbum(std::string albumName) {
 }
 
 // implement podcast release
+
