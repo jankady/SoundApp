@@ -2,25 +2,40 @@
 #ifndef SOUNDAPP_ARTIST_H
 #define SOUNDAPP_ARTIST_H
 #include <string>
+#include "User.h"
 
+class Playlist;
 
-class Artist {
+class Song;
+
+class Podcast;
+
+class MainPlatform;
+
+class Artist: public User {
 private:
     static int totalArtists; // Static member to keep track of total artists created
     int followers;
-    Playlist* releasedAlbums;
+    Playlist** releasedAlbums;
+    Playlist* unpublishedSongs; // Playlist to hold unpublished songs
+    int releasedAlbumsCount;
 
 public:
-    Artist();
+    Artist(std::string username, std::string email, MainPlatform* platform);
     ~Artist();
 
     static int getTotalArtists();
 
     int getFollowers();
-    Playlist* getReleasedAlbums();
+    Playlist** getReleasedAlbums();
+    Playlist* getUnpublishedSongs();
 
-    bool releaseNewSong(std::string songName, int songDuration, std::string songThumbNail);
-    bool releaseNewAlbum(std::string albumName, int albumDuration, std::string albumThumbNail);
+    bool addFollower();
+    bool removeFollower();
+
+    Song* releaseNewSong(std::string songName, int songDuration, std::string songThumbNail, Artist** additionalOwners, int additionalOwnersCount);
+    Playlist* releaseNewAlbum(std::string albumName);
+    Podcast* releaseNewPodcast(std::string podcastName, int podcastDuration, std::string podcastThumbNail, Artist** additionalOwners, int additionalOwnersCount);
 };
 
 
