@@ -19,7 +19,6 @@ private:
     Playlist** releasedAlbums;
     Playlist* unpublishedSongs; // Playlist to hold unpublished songs
     int releasedAlbumsCount;
-    MainPlatform* platform;
 
 public:
     Artist(std::string username, std::string email, MainPlatform* platform);

@@ -12,12 +12,12 @@ private:
 
 public:
     Song(std::string songName, int songDuration, std::string songThumbNail, Artist** songOwners, int songOwnerCount ,Playlist* parentAlbum);
-    ~Song();
+    ~Song() override;
 
     static int getTotalSongs();
     Playlist* getParentAlbum();
-    virtual void play();
-    virtual void pause();
+    void play() override;
+    void pause() override;
 };
 
 

@@ -7,10 +7,11 @@
 int User::totalUsers = 0;
 int User::nextUserId = 1;
 
-User::User(std::string username, std::string email) {
+User::User(std::string username, std::string email, MainPlatform* platform) {
     this->userId = User::nextUserId++;
     this->username = username;
     this->email = email;
+    this->mainPlatform = mainPlatform;
     User::totalUsers++;
 }
 
@@ -32,4 +33,8 @@ std::string User::getUsername() {
 
 std::string User::getEmail() {
     return this->email;
+}
+
+MainPlatform* User::getMainPlatform() {
+    return this->mainPlatform;
 }

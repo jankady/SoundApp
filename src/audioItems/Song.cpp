@@ -27,11 +27,9 @@ Playlist* Song::getParentAlbum() {
 }
 
 void Song::play() {
-    // Additional logic for playing a song can be added here
     std::cout << "Playing song: " << this->getAudioItemName() << std::endl;
 }
 
 void Song::pause() {
-    // Additional logic for pausing a song can be added here
     std::cout << "Pausing song: " << this->getAudioItemName() << std::endl;
 }

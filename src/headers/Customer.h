@@ -14,6 +14,7 @@ class Artist;
 class Song;
 class AudioItem;
 class Podcast;
+class MainPlatform;
 
 class Customer: public User{
 private:
@@ -26,14 +27,17 @@ private:
     AudioItem* currentlyPlaying;
 
 public:
-    Customer(std::string username, std::string email);
+    Customer(std::string username, std::string email, MainPlatform* platform);
     virtual ~Customer() override;
     static int getTotalCustomers();
 
     Playlist** getPlaylists();
     Subscription* getSubscription();
     Artist** getFollowingArtists();
+    AudioItem* getCurrentlyPlaying();
 
+    bool setCurrentlyPlaying(AudioItem* audioItem);
+    bool stopPlaying();
     bool followArtist(Artist* artist);
     bool unfollowArtist(Artist* artist);
     Song** searchSong(std::string songName);

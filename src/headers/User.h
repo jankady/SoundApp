@@ -3,6 +3,7 @@
 #define SOUNDAPP_USER_H
 #include <string>
 
+class MainPlatform;
 
 class User {
 
@@ -12,15 +13,17 @@ private:
     int userId;
     std::string username;
     std::string email;
+    MainPlatform* mainPlatform;
 
 public:
-    User(std::string username, std::string email);
+    User(std::string username, std::string email, MainPlatform* mainPlatform);
     virtual ~User();
 
     static int getTotalUsers();
     int getUserId();
     std::string getUsername();
     std::string getEmail();
+    MainPlatform* getMainPlatform();
 };
 
 

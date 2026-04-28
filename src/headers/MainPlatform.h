@@ -23,6 +23,8 @@ public:
 
     User* createNewUser(std::string username, std::string email, bool isArtist = false);
     AudioItem* addAudioItem(AudioItem* audioItem);
+    AudioItem** getAudioItems();
+    int getTotalAudioItems();
 
 };
 

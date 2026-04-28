@@ -5,11 +5,14 @@
 #include "../headers/Customer.h"
 
 #include "Artist.h"
+#include "AudioItem.h"
+#include "MainPlatform.h"
 #include "Playlist.h"
+#include "Song.h"
 
 int Customer::totalCustomers = 0;
 
-Customer::Customer(std::string username, std::string email) : User(username, email) {
+Customer::Customer(std::string username, std::string email, MainPlatform* platform) : User(username, email, platform) {
     this->playlists = new Playlist*[10]; // Initial capacity for 10 playlists
     this->totalPlaylists = 0;
     this->subscription = new Subscription(FREE); // Default subscription is FREE
@@ -48,6 +51,29 @@ Artist **Customer::getFollowingArtists() {
     return this->followingArtists;
 }
 
+AudioItem* Customer::getCurrentlyPlaying() {
+    return this->currentlyPlaying;
+}
+
+bool Customer::setCurrentlyPlaying(AudioItem* audioItem) {
+    if (audioItem == nullptr) {
+        return false;
+    }
+
+    this->currentlyPlaying = audioItem;
+    this->currentlyPlaying->play();
+    return true;
+}
+
+bool Customer::stopPlaying() {
+    if (this->currentlyPlaying == nullptr) {
+        return false;
+    }
+    this->currentlyPlaying->pause();
+    this->currentlyPlaying = nullptr;
+    return true;
+}
+
 bool Customer::followArtist(Artist *artist) {
     if (this->followingArtistsCount >= 10) {
         return false; // Cannot follow more than 10 artists
@@ -73,7 +99,17 @@ bool Customer::unfollowArtist(Artist *artist) {
 }
 
 Song** Customer::searchSong(std::string songName) {
+    int total = this->getMainPlatform()->getTotalAudioItems();
+    AudioItem** items = this->getMainPlatform()->getAudioItems();
 
-    for ()
-    return nullptr;
+    Song** results = new Song*[total + 1];
+    int matches = 0;
+    for (int i = 0; i < total; i++) {
+        Song* song = dynamic_cast<Song*>(items[i]);
+        if (song != nullptr && song->getAudioItemName().find(songName)) {
+            results[matches++] = song;
+        }
+    }
+    results[matches] = nullptr; // null terminator
+    return results;
 }

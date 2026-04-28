@@ -41,7 +41,7 @@ User* MainPlatform::createNewUser(std::string username, std::string email, bool 
         newUser = new Artist(username, email, this);
     }
     else {
-        newUser = new Customer(username, email);
+        newUser = new Customer(username, email, this);
     }
 
     this->users[MainPlatform::activeUsers++] = newUser;
@@ -54,4 +54,12 @@ AudioItem* MainPlatform::addAudioItem(AudioItem* audioItem) {
     }
     this->audioItems[this->totalAudioItems++] = audioItem;
     return audioItem;
+}
+
+AudioItem** MainPlatform::getAudioItems() {
+    return this->audioItems;
+}
+
+int MainPlatform::getTotalAudioItems() {
+    return this->totalAudioItems;
 }

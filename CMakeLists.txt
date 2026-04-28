@@ -25,6 +25,8 @@ add_executable(SoundApp
         src/headers/Invoice.h
         src/audioItems/Date.cpp
         src/headers/Date.h
+        src/audioItems/Podcast.cpp
+        src/headers/Podcast.h
 )
 
 target_include_directories(SoundApp PRIVATE
