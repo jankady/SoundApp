@@ -20,8 +20,11 @@ Artist::Artist(std::string username, std::string email, MainPlatform* platform) 
 
 Artist::~Artist() {
 
+    for (int i = 0; i < this->releasedAlbumsCount; i++) {
+        delete this->releasedAlbums[i];
+    }
     delete[] this->releasedAlbums;
-    delete[] this->unpublishedSongs;
+    delete this->unpublishedSongs;
     Artist::totalArtists--;
 }
 

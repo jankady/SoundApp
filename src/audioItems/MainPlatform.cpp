@@ -16,7 +16,6 @@ MainPlatform::MainPlatform() {
     this->users = new User*[100]; // Assuming a maximum of 100 users for
     this->audioItems = new AudioItem*[100]; // Assuming a maximum of 100 songs for simplicity
     this->totalAudioItems = 0;
-    MainPlatform::activeUsers++;
 
 }
 
@@ -48,6 +47,8 @@ Customer* MainPlatform::createNewCustomer(std::string username, std::string emai
     this->users[MainPlatform::activeUsers++] = newCustomer;
     return newCustomer;
 }
+
+
 
 AudioItem* MainPlatform::addAudioItem(AudioItem* audioItem) {
     if (this->totalAudioItems >= 100) {
