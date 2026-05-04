@@ -7,6 +7,8 @@
 #include <string>
 
 class User;
+class Artist;
+class Customer;
 class AudioItem;
 
 class MainPlatform {
@@ -21,7 +23,8 @@ public:
     MainPlatform();
     ~MainPlatform();
 
-    User* createNewUser(std::string username, std::string email, bool isArtist = false);
+    Artist* createNewArtist(std::string username, std::string email);
+    Customer* createNewCustomer(std::string username, std::string email);
     AudioItem* addAudioItem(AudioItem* audioItem);
     AudioItem** getAudioItems();
     int getTotalAudioItems();

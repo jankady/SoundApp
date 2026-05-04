@@ -31,21 +31,22 @@ MainPlatform::~MainPlatform() {
     delete[] this->audioItems;
 }
 
-User* MainPlatform::createNewUser(std::string username, std::string email, bool isArtist) {
+Artist* MainPlatform::createNewArtist(std::string username, std::string email) {
     if (MainPlatform::activeUsers >= 100) {
         return nullptr;
     }
-    User* newUser;
-    if (isArtist) {
-        // Create an artist user
-        newUser = new Artist(username, email, this);
-    }
-    else {
-        newUser = new Customer(username, email, this);
-    }
+    Artist* newArtist = new Artist(username, email, this);
+    this->users[MainPlatform::activeUsers++] = newArtist;
+    return newArtist;
+}
 
-    this->users[MainPlatform::activeUsers++] = newUser;
-    return newUser;
+Customer* MainPlatform::createNewCustomer(std::string username, std::string email) {
+    if (MainPlatform::activeUsers >= 100) {
+        return nullptr;
+    }
+    Customer* newCustomer = new Customer(username, email, this);
+    this->users[MainPlatform::activeUsers++] = newCustomer;
+    return newCustomer;
 }
 
 AudioItem* MainPlatform::addAudioItem(AudioItem* audioItem) {
