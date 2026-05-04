@@ -40,3 +40,15 @@ bool Subscription::setSubscriptionType(SubscriptionType type) {
     }
     return true;
 }
+
+bool Subscription::getIsActive() const {
+    return this->isActive;
+}
+
+SubscriptionType Subscription::getType() const {
+    return this->subscriptionName;
+}
+
+Date* Subscription::getEndDate() const {
+    return this->endDate;
+}

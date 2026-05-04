@@ -8,6 +8,7 @@
 #include "AudioItem.h"
 #include "MainPlatform.h"
 #include "Playlist.h"
+#include "Podcast.h"
 #include "Song.h"
 
 int Customer::totalCustomers = 0;
@@ -114,10 +115,37 @@ Song** Customer::searchSong(std::string songName) {
     int matches = 0;
     for (int i = 0; i < total; i++) {
         Song* song = dynamic_cast<Song*>(items[i]);
-        if (song != nullptr && song->getAudioItemName().find(songName)) {
+        // string::find returns npos on miss — must compare explicitly.
+        if (song != nullptr && song->getAudioItemName().find(songName) != std::string::npos) {
             results[matches++] = song;
         }
     }
     results[matches] = nullptr; // null terminator
     return results;
+}
+
+// Same algorithm as searchSong but filters Podcast subclass.
+Podcast** Customer::searchPodcast(std::string podcastName) {
+    int total = this->getMainPlatform()->getTotalAudioItems();
+    AudioItem** items = this->getMainPlatform()->getAudioItems();
+
+    Podcast** results = new Podcast*[total + 1];
+    int matches = 0;
+    for (int i = 0; i < total; i++) {
+        Podcast* podcast = dynamic_cast<Podcast*>(items[i]);
+        if (podcast != nullptr && podcast->getAudioItemName().find(podcastName) != std::string::npos) {
+            results[matches++] = podcast;
+        }
+    }
+    results[matches] = nullptr;
+    return results;
+}
+
+// Allocate a new Playlist owned by this customer.
+bool Customer::createPlaylist(std::string playlistName) {
+    if (this->totalPlaylists >= 10) {
+        return false;
+    }
+    this->playlists[this->totalPlaylists++] = new Playlist(playlistName, this);
+    return true;
 }
