@@ -9,6 +9,7 @@
 int Invoice::totalInvoices = 0;
 int Invoice::nextInvoiceId = 1;
 
+// Take ownership of the Date pointer passed in by the caller.
 Invoice::Invoice(std::string customername,  Date* date, double cost) {
     this->id = Invoice::nextInvoiceId++;
     this->customerName = customername;

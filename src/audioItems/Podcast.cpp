@@ -8,6 +8,7 @@
 
 int Podcast::totalPodcasts = 0;
 
+// Forward base-class arguments to AudioItem; description is the podcast-specific extension.
 Podcast::Podcast(std::string podcastName, int podcastDuration, std::string podcastThumbnail, Artist** podcastOwners, int podcastOwnerCount, std::string description)
     : AudioItem(podcastName, podcastDuration, podcastThumbnail, podcastOwners, podcastOwnerCount) {
     this->description = description;
@@ -26,6 +27,7 @@ std::string Podcast::getDescription() const {
     return this->description;
 }
 
+// Concrete implementations of AudioItem's pure virtuals — late binding entry points.
 void Podcast::play() {
     std::cout << "Playing podcast: " << this->getAudioItemName() << std::endl;
 }

@@ -7,6 +7,7 @@
 
 int Song::totalSongs = 0;
 
+// Forward base-class arguments to AudioItem; parentAlbum is just a back-reference.
 Song::Song(std::string songName, int songDuration, std::string songThumbNail, Artist** songOwners, int songOwnerCount ,Playlist* parentAlbum)
     : AudioItem(songName, songDuration, songThumbNail, songOwners, songOwnerCount) {
     this->parentAlbum = parentAlbum;
@@ -17,6 +18,8 @@ Song::~Song() {
     delete this->parentAlbum;
     Song::totalSongs--;
 }
+
+// Concrete implementations of AudioItem's pure virtuals — late binding entry points.
 
 int Song::getTotalSongs() {
     return Song::totalSongs;

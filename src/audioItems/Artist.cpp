@@ -5,10 +5,13 @@
 
 #include "MainPlatform.h"
 #include "Playlist.h"
+#include "Podcast.h"
 #include "Song.h"
 
 int Artist::totalArtists = 0;
 
+// Forward base initialization to User and set up artist-specific state:
+// fixed-size album pool (cap 10) and a private staging playlist.
 Artist::Artist(std::string username, std::string email, MainPlatform* platform) : User(username, email, platform) {
     this->followers = 0;
     this->releasedAlbums = new Playlist *[10];
@@ -18,6 +21,8 @@ Artist::Artist(std::string username, std::string email, MainPlatform* platform) 
     Artist::totalArtists++;
 }
 
+// Owns released albums and the staging playlist — release them here.
+// Songs themselves are owned by MainPlatform, not by the artist.
 Artist::~Artist() {
 
     for (int i = 0; i < this->releasedAlbumsCount; i++) {
@@ -57,6 +62,8 @@ bool Artist::removeFollower() {
     return false;
 }
 
+// Build owners array (this artist first, then co-owners), construct the Song,
+// add it to the staging playlist and register it on the platform.
 Song* Artist::releaseNewSong(std::string songName, int songDuration, std::string songThumbNail, Artist** additionalOwners, int additionalOwnersCount) {
 
     Artist** songOwners = new Artist *[additionalOwnersCount + 1];
@@ -71,6 +78,8 @@ Song* Artist::releaseNewSong(std::string songName, int songDuration, std::string
     return newSong;
 }
 
+// Materialize a new album from everything currently in the staging playlist
+// and clear the staging playlist.
 Playlist* Artist::releaseNewAlbum(std::string albumName) {
     Playlist *newAlbum = new Playlist(albumName, this);
     for (int i = 0; i < this->unpublishedSongs->getTotalSongs(); i++) {
@@ -82,5 +91,18 @@ Playlist* Artist::releaseNewAlbum(std::string albumName) {
     return newAlbum;
 }
 
-// implement podcast release
+// Build owners array (this artist first, then co-owners), construct the Podcast
+// and register it on the platform. Mirrors releaseNewSong but skips the
+// staging-playlist step — podcasts go live directly.
+Podcast* Artist::releaseNewPodcast(std::string podcastName, int podcastDuration, std::string podcastThumbNail, Artist** additionalOwners, int additionalOwnersCount) {
 
+    Artist** podcastOwners = new Artist *[additionalOwnersCount + 1];
+    podcastOwners[0] = this;
+    for (int i = 0; i < additionalOwnersCount; i++) {
+        podcastOwners[i + 1] = additionalOwners[i];
+    }
+    Podcast* newPodcast = new Podcast(podcastName, podcastDuration, podcastThumbNail, podcastOwners, additionalOwnersCount + 1, "");
+    this->getMainPlatform()->addAudioItem(newPodcast);
+    std::cout << "Releasing new podcast: " << podcastName << std::endl;
+    return newPodcast;
+}

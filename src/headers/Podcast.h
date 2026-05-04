@@ -7,10 +7,15 @@
 #include "AudioItem.h"
 
 
+/**
+ * Concrete AudioItem representing a podcast episode. Extends AudioItem with a
+ * description string. Implements play()/pause() with simple console output to
+ * demonstrate late binding via AudioItem*.
+ */
 class Podcast: public AudioItem{
 
 private:
-    static int totalPodcasts; // Static member to keep track of total podcasts created
+    static int totalPodcasts;      // running count of live podcasts
     std::string description;
 
 public:
@@ -19,7 +24,8 @@ public:
 
     static int getTotalPodcasts();
     std::string getDescription() const;
-    void play() override;
+
+    void play() override;          // overrides pure virtual AudioItem::play
     void pause() override;
 
 };

@@ -8,13 +8,17 @@
 
 class Date;
 
+/**
+ * Standalone receipt-like value object: id, customer name, date and cost.
+ * Holds Date by composition (class in the role of an object).
+ */
 class Invoice {
 private:
-    static int totalInvoices; // Static member to keep track of total invoices created
-    static int nextInvoiceId; // Static member to generate unique invoice IDs
+    static int totalInvoices;      // running count of live invoices
+    static int nextInvoiceId;      // monotonic id generator
     int id;
-    std::string customerName; // Name of the customer associated with the invoice
-    Date* date;
+    std::string customerName;
+    Date* date;                    // owned
     double cost;
 
 public:
@@ -24,6 +28,7 @@ public:
     double getCost() const;
     Date* getDate() const;
 
+    // Multi-line human-readable rendering of the invoice.
     std::string printInvoiceDetails();
 };
 

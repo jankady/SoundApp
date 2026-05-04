@@ -5,6 +5,9 @@
 #include "../headers/Date.h"
 
 int Date::totalDates = 0;
+
+// Cheap input clamping via modulo — keeps day in 0..31 and month in 0..12.
+// Not a real validator; just guards obviously bogus values.
 Date::Date(int day, int month, int year) {
     this->day = day % 32;
     this->month = month % 13;
@@ -24,6 +27,7 @@ int Date::getYear() const {
     return this->year;
 }
 
+// Lexicographic compare on (year, month, day).
 bool Date::isBefore(const Date& other) const {
     if (this->year > other.getYear()) {
         return false;

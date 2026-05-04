@@ -8,6 +8,7 @@
 
 int Subscription::totalSubscriptions = 0;
 
+// Overload #1: explicit end date (typically used for PREMIUM).
 Subscription::Subscription(SubscriptionType type, Date* endDate) {
     this->subscriptionName = type;
     this->endDate = endDate;
@@ -15,6 +16,7 @@ Subscription::Subscription(SubscriptionType type, Date* endDate) {
     Subscription::totalSubscriptions++;
 }
 
+// Overload #2: no end date — used for FREE tier.
 Subscription::Subscription(SubscriptionType type) {
     this->subscriptionName = type;
     this->endDate = nullptr;
@@ -22,6 +24,7 @@ Subscription::Subscription(SubscriptionType type) {
     Subscription::totalSubscriptions++;
 }
 
+// Owns the end Date — release it here.
 Subscription::~Subscription() {
     delete this->endDate;
     Subscription::totalSubscriptions--;

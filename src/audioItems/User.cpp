@@ -7,6 +7,7 @@
 int User::totalUsers = 0;
 int User::nextUserId = 1;
 
+// Assign a fresh id from the static counter and store the platform back-pointer.
 User::User(std::string username, std::string email, MainPlatform* platform) {
     this->userId = User::nextUserId++;
     this->username = username;
@@ -15,6 +16,7 @@ User::User(std::string username, std::string email, MainPlatform* platform) {
     User::totalUsers++;
 }
 
+// Virtual — invoked through User* base pointer in MainPlatform::~MainPlatform.
 User::~User() {
     User::totalUsers--;
 }

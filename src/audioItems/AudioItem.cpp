@@ -7,6 +7,7 @@ using namespace std;
 int AudioItem::nextAudioItemId = 1;
 int AudioItem::totalAudioItems = 0;
 
+// Take ownership of the owners array allocated by the caller (Artist::releaseNew*).
 AudioItem::AudioItem(string audioName, int audioDuration, string audioThumbNail, Artist** audioOwners, int ownersCount) {
     this->audioItemId = AudioItem::nextAudioItemId++;
     this->audioItemName = audioName;
@@ -18,6 +19,8 @@ AudioItem::AudioItem(string audioName, int audioDuration, string audioThumbNail,
 
 }
 
+// Virtual — invoked through AudioItem* base pointer in MainPlatform's destructor.
+// Frees the owners array but not the Artist objects (those belong to MainPlatform).
 AudioItem::~AudioItem() {
     delete[] this->owners;
     AudioItem::totalAudioItems--;

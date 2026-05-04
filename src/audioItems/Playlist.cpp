@@ -6,6 +6,8 @@
 int Playlist::nextPlaylistId = 1;
 int Playlist::totalPlaylists = 0;
 
+// Hard-cap at 10 entries. The songs array is polymorphic — it stores
+// AudioItem* and accepts both Song and Podcast pointers.
 Playlist::Playlist(std::string playlistName, User *owner) {
     this->playlistId = Playlist::nextPlaylistId++;
     this->playlistName = playlistName;
@@ -16,6 +18,7 @@ Playlist::Playlist(std::string playlistName, User *owner) {
     Playlist::totalPlaylists++;
 }
 
+// Free only the array; AudioItem objects belong to MainPlatform.
 Playlist::~Playlist() {
     delete[] this->songs;
     Playlist::totalPlaylists--;
@@ -63,7 +66,7 @@ std::string Playlist::getPlaylistInfo() {
     return info;
 }
 
-// implement
+// Overload #1: append a single audio item if there's room.
 bool Playlist::addSongToPlaylist(AudioItem* song) {
 
     // first check capacity if is full then increase capacity
@@ -77,7 +80,7 @@ bool Playlist::addSongToPlaylist(AudioItem* song) {
 
 }
 
-// implement
+// Overload #2: copy all entries from another playlist into this one.
 bool Playlist::addSongToPlaylist(Playlist* playlist) {
     for (int i = 0; i < this->totalSongs; i++) {
         if (!this->addSongToPlaylist(playlist->songs[i])) {
