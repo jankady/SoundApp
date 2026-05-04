@@ -15,7 +15,7 @@ Song::Song(std::string songName, int songDuration, std::string songThumbNail, Ar
 }
 
 Song::~Song() {
-    delete this->parentAlbum;
+    // parentAlbum is a back-reference owned by Artist::releasedAlbums — do not delete here.
     Song::totalSongs--;
 }
 

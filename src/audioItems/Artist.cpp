@@ -68,8 +68,8 @@ Song* Artist::releaseNewSong(std::string songName, int songDuration, std::string
 
     Artist** songOwners = new Artist *[additionalOwnersCount + 1];
     songOwners[0] = this;
-    for (int i = 0; additionalOwners[i] != nullptr; i++) {
-        songOwners[i] = additionalOwners[i]; // Add additional owners
+    for (int i = 0; i < additionalOwnersCount; i++) {
+        songOwners[i + 1] = additionalOwners[i]; // Add additional owners after this artist
     }
     Song *newSong = new Song(songName, songDuration, songThumbNail, songOwners, additionalOwnersCount + 1, nullptr);
     this->unpublishedSongs->addSongToPlaylist(newSong); // Add the new song to the first album (for simplicity)

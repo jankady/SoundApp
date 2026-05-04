@@ -12,7 +12,7 @@ User::User(std::string username, std::string email, MainPlatform* platform) {
     this->userId = User::nextUserId++;
     this->username = username;
     this->email = email;
-    this->mainPlatform = mainPlatform;
+    this->mainPlatform = platform;
     User::totalUsers++;
 }
 

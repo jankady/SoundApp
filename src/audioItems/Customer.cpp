@@ -32,9 +32,7 @@ Customer::~Customer() {
     }
     delete[] this->playlists;
     delete this->subscription;
-    for (int i = 0; i < this->followingArtistsCount; i++) {
-        delete this->followingArtists[i];
-    }
+        // followingArtists are owned by MainPlatform — only free the array of pointers.
     delete[] this->followingArtists;
     Customer::totalCustomers--;
 }
