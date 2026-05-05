@@ -4,6 +4,8 @@
 
 #include "../headers/User.h"
 
+#include <iostream>
+
 int User::totalUsers = 0;
 int User::nextUserId = 1;
 

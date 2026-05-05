@@ -15,7 +15,7 @@ class User {
 
 private:
     static int totalUsers;   // running count of live users
-    static int nextUserId;   // monotonic id generator
+    static int nextUserId;   //  id generator
     int userId;
     std::string username;
     std::string email;
@@ -30,6 +30,13 @@ public:
     std::string getUsername();
     std::string getEmail();
     MainPlatform* getMainPlatform();    // platform this user belongs to
+
+    // Non-pure virtual — base provides a default implementation that prints
+    // the generic user identity. Subclasses (Artist, Customer) override this
+    // to change behavior (extend the output with role-specific data).
+    // Called through User* from MainPlatform::users[] to demonstrate late
+    // binding (grading point 7: změna chování s pozdní vazbou).
+    virtual void printInfo();
 };
 
 

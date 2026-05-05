@@ -6,40 +6,32 @@
 class Artist;
 
 /**
- * Pure abstract base of the audio hierarchy. Carries common metadata
- * (id, name, duration, thumbnail, owners) and declares play()/pause() as pure
- * virtual so each concrete type (Song, Podcast) provides its own behavior.
- * Used as the polymorphic element type in MainPlatform::audioItems and
- * Playlist::songs.
+ * Pure abstract interface — no instance data, only pure virtual methods.
+ * Concrete subclasses (Song, Podcast) carry the audio metadata themselves
+ * and implement the full interface. Used as the polymorphic element type
+ * in MainPlatform::audioItems and Playlist::songs.
+ *
+ * Static counters are class-scoped state (not per-instance) and are shared
+ * by all concrete subclasses so that audio item ids stay globally unique.
  */
 class AudioItem {
-private:
-    static int nextAudioItemId;     // monotonic id generator
+protected:
+    static int nextAudioItemId;     // monotonic id generator (shared by Song/Podcast)
     static int totalAudioItems;     // running count of live audio items
-    int audioItemId;
-    std::string audioItemName;
-    int audioItemDuration;          // in seconds
-    std::string audioItemThumbNailPath;
-    Artist** owners;                // owned: array of co-owners
-    int ownersCount;
 
 public:
-
-    AudioItem(std::string audioName, int audioDuration, std::string audioThumbNail, Artist** audioOwners, int ownersCount);
-    virtual ~AudioItem();
+    virtual ~AudioItem();           // out-of-line definition required for vtable anchor
 
     static int getTotalAudioItems();
-    std::string getAudioItemName();
-    int getAudioItemDuration();
-    std::string getAudioItemThumbNailPath();
-    int getAudioItemId();
-    int getOwnersCount();
-    Artist** getOwners();
 
-    bool setAudioItemName(std::string newAudioName);
+    virtual std::string getAudioItemName() = 0;
+    virtual int getAudioItemDuration() = 0;
+    virtual int getAudioItemId() = 0;
+    virtual std::string getAudioItemThumbNailPath() = 0;
+    virtual Artist** getOwners() = 0;
+    virtual int getOwnersCount() = 0;
+    virtual bool setAudioItemName(std::string newAudioName) = 0;
 
-    // Pure virtual: each subclass implements its own playback behavior.
-    // Called via base pointer (AudioItem*) — late binding.
     virtual void play() = 0;
     virtual void pause() = 0;
 };

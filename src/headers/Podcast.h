@@ -8,14 +8,20 @@
 
 
 /**
- * Concrete AudioItem representing a podcast episode. Extends AudioItem with a
- * description string. Implements play()/pause() with simple console output to
- * demonstrate late binding via AudioItem*.
+ * Concrete AudioItem representing a podcast episode. Carries its own copy of
+ * the audio metadata (id, name, duration, thumbnail, owners) and implements
+ * the full AudioItem interface. Adds a description field on top.
  */
 class Podcast: public AudioItem{
 
 private:
-    static int totalPodcasts;      // running count of live podcasts
+    static int totalPodcasts;
+    int audioItemId;
+    std::string audioItemName;
+    int audioItemDuration;
+    std::string audioItemThumbNailPath;
+    Artist** owners;
+    int ownersCount;
     std::string description;
 
 public:
@@ -25,9 +31,16 @@ public:
     static int getTotalPodcasts();
     std::string getDescription() const;
 
-    void play() override;          // overrides pure virtual AudioItem::play
-    void pause() override;
+    std::string getAudioItemName() override;
+    int getAudioItemDuration() override;
+    int getAudioItemId() override;
+    std::string getAudioItemThumbNailPath() override;
+    Artist** getOwners() override;
+    int getOwnersCount() override;
+    bool setAudioItemName(std::string newAudioName) override;
 
+    void play() override;
+    void pause() override;
 };
 
 

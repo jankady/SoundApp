@@ -1,0 +1,216 @@
+@startuml SoundApp
+title SoundApp — UML diagram tříd (konceptuální)
+
+skinparam classAttributeIconSize 0
+skinparam classFontStyle bold
+hide empty members
+left to right direction
+
+' =========================================================
+' Hierarchie uživatelů: User -> Artist, Customer
+' =========================================================
+abstract class User {
+  - userId : int
+  - username : string
+  - email : string
+  - mainPlatform : MainPlatform*
+  --
+  + {abstract} ~User()
+}
+
+class Artist {
+  - followers : int
+  - releasedAlbums : Playlist**
+  - unpublishedSongs : Playlist*
+  --
+  + addFollower() : bool
+  + removeFollower() : bool
+  + releaseNewSong(...) : Song*
+  + releaseNewAlbum(name) : Playlist*
+  + releaseNewPodcast(...) : Podcast*
+}
+
+class Customer {
+  - playlists : Playlist**
+  - subscription : Subscription*
+  - followingArtists : Artist**
+  - currentlyPlaying : AudioItem*
+  --
+  + setCurrentlyPlaying(AudioItem*) : bool
+  + stopPlaying() : bool
+  + followArtist(Artist*) : bool
+  + unfollowArtist(Artist*) : bool
+  + searchSong(name) : Song**
+  + searchPodcast(name) : Podcast**
+  + createPlaylist(name) : bool
+}
+
+User <|-- Artist
+User <|-- Customer
+
+
+' =========================================================
+' Hierarchie audio obsahu: AudioItem (čistě abstraktní) -> Song, Podcast
+' =========================================================
+abstract class AudioItem <<interface>> {
+  --
+  + {abstract} ~AudioItem()
+  + {abstract} play() : void
+  + {abstract} pause() : void
+}
+
+class Song {
+  - audioItemId : int
+  - audioItemName : string
+  - audioItemDuration : int
+  - owners : Artist**
+  - parentAlbum : Playlist*
+  --
+  + play() : void
+  + pause() : void
+}
+
+class Podcast {
+  - audioItemId : int
+  - audioItemName : string
+  - audioItemDuration : int
+  - owners : Artist**
+  - description : string
+  --
+  + play() : void
+  + pause() : void
+}
+
+AudioItem <|-- Song
+AudioItem <|-- Podcast
+
+
+' =========================================================
+' Kořenový agregát
+' =========================================================
+class MainPlatform {
+  - users : User**
+  - audioItems : AudioItem**
+  --
+  + createNewArtist(username, email) : Artist*
+  + createNewCustomer(username, email) : Customer*
+  + addAudioItem(AudioItem*) : AudioItem*
+}
+
+
+' =========================================================
+' Doplňující třídy (kompozice)
+' =========================================================
+class Playlist {
+  - playlistId : int
+  - songs : AudioItem**
+  - playlistName : string
+  - owner : User*
+  --
+  + addSongToPlaylist(AudioItem*) : bool
+  + addSongToPlaylist(Playlist*) : bool
+  + removeSongFromPlaylist(songId) : bool
+  + removeAllSongsFromPlaylist() : bool
+  + getPlaylistInfo() : string
+}
+
+class Subscription {
+  - isActive : bool
+  - subscriptionName : SubscriptionType
+  - endDate : Date*
+  --
+  + Subscription(type, Date*)
+  + Subscription(type)
+  + setSubscriptionType(type) : bool
+}
+
+class Invoice {
+  - id : int
+  - customerName : string
+  - date : Date*
+  - cost : double
+  --
+  + printInvoiceDetails() : string
+}
+
+class Date {
+  - day : int
+  - month : int
+  - year : int
+  --
+  + isBefore(Date&) : bool
+}
+
+enum SubscriptionType <<enumeration>> {
+  FREE
+  PREMIUM
+}
+
+
+' =========================================================
+' Vztahy (kompozice / agregace / asociace)
+' =========================================================
+
+' MainPlatform vlastní uživatele a audio položky (polymorfní pole)
+MainPlatform "1" *-- "0..*" User : users (User**)
+MainPlatform "1" *-- "0..*" AudioItem : audioItems (AudioItem**)
+
+' User drží zpětný ukazatel na platformu
+User "0..*" --> "1" MainPlatform : mainPlatform
+
+' Artist vlastní svá vydaná alba a staging playlist
+Artist "1" *-- "0..*" Playlist : releasedAlbums
+Artist "1" *-- "1" Playlist : unpublishedSongs
+
+' Customer vlastní playlisty a předplatné, sleduje umělce, hraje audio
+Customer "1" *-- "0..*" Playlist : playlists
+Customer "1" *-- "1" Subscription : subscription
+Customer "0..*" o-- "0..*" Artist : followingArtists
+Customer "0..*" --> "0..1" AudioItem : currentlyPlaying
+
+' Playlist drží polymorfní seznam audio položek a odkaz na vlastníka
+Playlist "0..*" o-- "0..*" AudioItem : songs (AudioItem**)
+Playlist "0..*" --> "1" User : owner
+
+' Song zpětně odkazuje na své mateřské album
+Song "0..*" --> "0..1" Playlist : parentAlbum
+
+' Audio item odkazuje na své vlastníky (umělce)
+AudioItem "0..*" o-- "1..*" Artist : owners
+
+' Subscription drží datum konce a odkazuje na enum
+Subscription "1" *-- "0..1" Date : endDate
+Subscription ..> SubscriptionType : <<use>>
+
+' Invoice drží datum vystavení
+Invoice "1" *-- "1" Date : date
+
+
+' =========================================================
+' Poznámky k bodům zadání
+' =========================================================
+note top of AudioItem
+  Bod 8 zadání: čistě abstraktní třída.
+  Žádná instanční data — jen pure
+  virtual metody.
+end note
+
+note bottom of MainPlatform
+  Bod 9 zadání: polymorfní datové struktury.
+  - users: User** drží Artist i Customer
+  - audioItems: AudioItem** drží Song i Podcast
+end note
+
+note right of Playlist
+  Bod 4 zadání: přetížené metody.
+  addSongToPlaylist(AudioItem*)
+  addSongToPlaylist(Playlist*)
+end note
+
+note right of Subscription
+  Bod 4 zadání: přetížené konstruktory.
+  Subscription(type, Date*)
+  Subscription(type)
+end note
+
+@enduml

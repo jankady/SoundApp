@@ -6,23 +6,39 @@
 class Playlist;
 
 /**
- * Concrete AudioItem representing a music track. Optionally back-references
- * the album (Playlist) it belongs to. Implements play()/pause() with simple
- * console output to demonstrate late binding via AudioItem*.
+ * Concrete AudioItem representing a music track. Carries its own copy of the
+ * audio metadata (id, name, duration, thumbnail, owners) and implements the
+ * full AudioItem interface. Optionally back-references the album (Playlist)
+ * it belongs to.
  */
 class Song: public AudioItem {
 private:
-    static int totalSongs;     // running count of live songs
-    Playlist* parentAlbum;     // back-reference, NOT owned
+    static int totalSongs;
+    int audioItemId;
+    std::string audioItemName;
+    int audioItemDuration;
+    std::string audioItemThumbNailPath;
+    Artist** owners;
+    int ownersCount;
+
+    Playlist* parentAlbum;     // back-reference
 
 public:
-    Song(std::string songName, int songDuration, std::string songThumbNail, Artist** songOwners, int songOwnerCount ,Playlist* parentAlbum);
+    Song(std::string songName, int songDuration, std::string songThumbNail, Artist** songOwners, int songOwnerCount, Playlist* parentAlbum);
     ~Song() override;
 
     static int getTotalSongs();
     Playlist* getParentAlbum();
 
-    void play() override;      // overrides pure virtual AudioItem::play
+    std::string getAudioItemName() override;
+    int getAudioItemDuration() override;
+    int getAudioItemId() override;
+    std::string getAudioItemThumbNailPath() override;
+    Artist** getOwners() override;
+    int getOwnersCount() override;
+    bool setAudioItemName(std::string newAudioName) override;
+
+    void play() override;
     void pause() override;
 };
 

@@ -141,8 +141,6 @@ int main() {
     bob->stopPlaying();
     cout << "\n";
 
-    // -------------------- Search --------------------
-    cout << "--- Searching ---\n";
     cout << "Bob searches songs containing \"Hello\":\n";
     Song** songMatches = bob->searchSong("Hello");
     for (int i = 0; songMatches[i] != nullptr; i++) {

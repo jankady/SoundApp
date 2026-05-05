@@ -14,7 +14,7 @@ int MainPlatform::activeUsers = 0;
 // Pre-allocate fixed-size pools for users and audio items.
 MainPlatform::MainPlatform() {
 
-    this->users = new User*[100]; // Assuming a maximum of 100 users for
+    this->users = new User*[100]; // Assuming a maximum of 100 users for simplicity
     this->audioItems = new AudioItem*[100]; // Assuming a maximum of 100 songs for simplicity
     this->totalAudioItems = 0;
 
