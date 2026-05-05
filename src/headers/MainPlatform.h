@@ -40,6 +40,12 @@ public:
     AudioItem** getAudioItems();
     int getTotalAudioItems();
 
+    // Expose the polymorphic User** array so callers can iterate and invoke
+    // virtual methods (e.g. printInfo) through the base pointer — this is
+    // where late binding is observable from main.
+    User** getUsers();
+    static int getActiveUsers();
+
 };
 
 

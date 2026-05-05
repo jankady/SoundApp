@@ -42,3 +42,11 @@ std::string User::getEmail() {
 MainPlatform* User::getMainPlatform() {
     return this->mainPlatform;
 }
+
+// Default behavior — prints generic identity. Artist/Customer override this
+// to extend the output with role-specific information.
+void User::printInfo() {
+    std::cout << "[User] id=" << this->userId
+              << ", username=" << this->username
+              << ", email=" << this->email << std::endl;
+}

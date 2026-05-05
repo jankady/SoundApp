@@ -106,3 +106,13 @@ Podcast* Artist::releaseNewPodcast(std::string podcastName, int podcastDuration,
     std::cout << "Releasing new podcast: " << podcastName << std::endl;
     return newPodcast;
 }
+
+// Changed behavior — same identity fields as User::printInfo, but tags the
+// user as [Artist] and appends follower count and released album count.
+void Artist::printInfo() {
+    std::cout << "[Artist] id=" << this->getUserId()
+              << ", username=" << this->getUsername()
+              << ", email=" << this->getEmail()
+              << ", followers=" << this->followers
+              << ", releasedAlbums=" << this->releasedAlbumsCount << std::endl;
+}

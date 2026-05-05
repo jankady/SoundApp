@@ -4,6 +4,8 @@
 
 #include "../headers/Customer.h"
 
+#include <iostream>
+
 #include "Artist.h"
 #include "AudioItem.h"
 #include "MainPlatform.h"
@@ -139,6 +141,19 @@ Podcast** Customer::searchPodcast(std::string podcastName) {
     }
     results[matches] = nullptr;
     return results;
+}
+
+// Changed behavior — same identity fields as User::printInfo, but tags the
+// user as [Customer] and appends subscription tier, playlist count and number
+// of followed artists.
+void Customer::printInfo() {
+    std::cout << "[Customer] id=" << this->getUserId()
+              << ", username=" << this->getUsername()
+              << ", email=" << this->getEmail()
+              << ", subscription="
+              << (this->subscription->getType() == PREMIUM ? "PREMIUM" : "FREE")
+              << ", playlists=" << this->totalPlaylists
+              << ", following=" << this->followingArtistsCount << std::endl;
 }
 
 // Allocate a new Playlist owned by this customer.

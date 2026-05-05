@@ -70,3 +70,11 @@ AudioItem** MainPlatform::getAudioItems() {
 int MainPlatform::getTotalAudioItems() {
     return this->totalAudioItems;
 }
+
+User** MainPlatform::getUsers() {
+    return this->users;
+}
+
+int MainPlatform::getActiveUsers() {
+    return MainPlatform::activeUsers;
+}

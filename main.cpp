@@ -176,6 +176,19 @@ int main() {
     cout << "today.isBefore(later) = " << today.isBefore(later) << "\n";
     cout << "later.isBefore(today) = " << later.isBefore(today) << "\n\n";
 
+    // -------------------- Late binding: printInfo() through User* --------------------
+    // Grading point 7 — změna chování s pozdní vazbou:
+    // User::printInfo() has a default implementation; Artist and Customer
+    // override it to change behavior. Iterating MainPlatform::users (a
+    // polymorphic User** array) and calling printInfo() through the base
+    // pointer dispatches at runtime to the correct subclass version.
+    cout << "--- printInfo() via User* (late binding) ---\n";
+    User** users = spotify->getUsers();
+    for (int i = 0; i < MainPlatform::getActiveUsers(); i++) {
+        users[i]->printInfo();   // resolves to Artist::printInfo or Customer::printInfo
+    }
+    cout << "\n";
+
     // -------------------- Final stats --------------------
     cout << "=== Final platform stats ===\n";
     cout << "Users     : " << User::getTotalUsers()           << "\n";

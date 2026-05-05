@@ -1,0 +1,14 @@
+ZADÁNÍ
+------
+
+Stavím jednoduchou hudební platformu podobné
+Spotify. Na platformě se registrují uživatelé dvojího druhu —
+umělci a zákazníci. Umělci vydávají audio obsah (skladby a podcasty)
+a vytvářejí z vydaných skladeb alba. Zákazníci tento obsah
+poslouchají, vytvářejí si vlastní playlisty, sledují své oblíbené
+umělce a mohou si zaplatit prémiové předplatné, ke kterému jim
+platforma vystaví fakturu. Audio obsah lze přehrávat a pozastavit;
+zákazník v každém okamžiku poslouchá nejvýše jednu skladbu nebo
+podcast. Zákazník dále může v platformě vyhledávat skladby a
+podcasty podle jména. Platforma má omezenou kapacitu uživatelů
+i obsahu.

@@ -47,6 +47,11 @@ public:
 
     // Build a new Podcast and register it on the platform.
     Podcast* releaseNewPodcast(std::string podcastName, int podcastDuration, std::string podcastThumbNail, Artist** additionalOwners, int additionalOwnersCount);
+
+    // Override changes the behavior inherited from User: identifies the user
+    // as an Artist and adds follower count + released album count to the output.
+    // Resolved via late binding when called through User*.
+    virtual void printInfo() override;
 };
 
 

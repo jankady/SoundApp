@@ -55,6 +55,12 @@ public:
     Podcast** searchPodcast(std::string podcastName);
 
     bool createPlaylist(std::string playlistName);
+
+    // Override changes the behavior inherited from User: identifies the user
+    // as a Customer and adds subscription tier + playlist count + followed
+    // artists count to the output. Resolved via late binding when called
+    // through User*.
+    virtual void printInfo() override;
 };
 
 
